@@ -1,3 +1,5 @@
+package org.saojudas;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,30 +19,28 @@ public class Main {
      * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_02.csv
      * --------------------------------------------------------------------------
      */
-    public static void main(String[] args)
-            throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
 
         String basePath = System.getProperty("user.dir");
-        int fase = 1;
-        String inputFileName = "Habitantes_UF_01.csv";
-        String outputFileName = "Habitantes_UF_0" + (fase + 1) + ".csv";
-
-        String inputFilePath = basePath + File.separator + inputFileName;
-        String outputFilePath = basePath + File.separator + outputFileName;
+        String inputFilePath = basePath + File.separator + "Habitantes_UF_01.csv";
+        String outputFilePath = basePath + File.separator + "Habitantes_UF_02.csv";
 
         FileInputStream instream = new FileInputStream(inputFilePath);
-        FileWriter fileWriter = new FileWriter(new File(outputFilePath));
-
         InputStreamReader reader = new InputStreamReader(instream);
         BufferedReader br = new BufferedReader(reader);
+
+        FileWriter fileWriter = new FileWriter(outputFilePath);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
+        //*----------------- DefiniÃ§Ã£o da linha do arquivo de entrada  -------------------------------
         String linha;
         linha = br.readLine();
 
+        //*----------------- DefiniÃ§Ã£o das variaveis de controle de lidos e gravados -----------------
         int Lidos = 0;
         int Gravados = 0;
 
+        //*----------------- Leitura de todos os registros (linhas) do arquivo de entrada ------------
         while (linha != null) {
             Lidos = Lidos + 1;
             String[] campos = linha.split(";");
@@ -80,37 +80,30 @@ public class Main {
             }
             linha = br.readLine();
         }
-   
+        //*----------------- Encerramento do tratamento do arquivo -----------
         bufferedWriter.close();
         fileWriter.close();
-        br.close();
-        reader.close();
 
+        //*------------------------ Exibe os controles  ----------------------
         System.out.println("--------- Fase 1 ---------------");
         System.out.println("Registros lidos    = " + Lidos);
         System.out.println("Registros gravados = " + Gravados);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 2
-         * Data : 03 de outubro de 2024
-         * Objetivo : ETC - ClassificaÃ§Ã£o alfabÃ©tica pelo nome do Estado
-         * Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_02.csv
-         * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_03.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 2
+    Data        :   03 de outubro de 2024
+    Objetivo    :   ETC - ClassificaÃ§Ã£o alfabÃ©tica pelo nome do Estado
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_02.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_03.csv
+    --------------------------------------------------------------------------
          */
-        int f2 = 2;
-        String inputFileName2 = "Habitantes_UF_02.csv";
-        String outputFileName2 = "Habitantes_UF_0" + (f2 + 1) + ".csv";
-
-        String inputFilePath2 = basePath + File.separator + inputFileName2;
-        String outputFilePath2 = basePath + File.separator + outputFileName2;
         int Gravados2 = 0;
 
         String str2;
         ArrayList<String> nomes2 = new ArrayList<String>();
 
-        BufferedReader in2 = new BufferedReader(new FileReader(inputFilePath2));
+        BufferedReader in2 = new BufferedReader(new FileReader(basePath + File.separator + "Habitantes_UF_02.csv"));
 
         while ((str2 = in2.readLine()) != null) {
             nomes2.add(str2);
@@ -119,7 +112,7 @@ public class Main {
 
         Collections.sort(nomes2);
 
-        BufferedWriter out2 = new BufferedWriter(new FileWriter(outputFilePath2));
+        BufferedWriter out2 = new BufferedWriter(new FileWriter(basePath + File.separator + "Habitantes_UF_03.csv"));        
         for (int i = 0; i < nomes2.size(); i++) {
             out2.write(nomes2.get(i));
             Gravados2 = Gravados2 + 1;
@@ -131,104 +124,98 @@ public class Main {
         System.out.println("Registros gravados = " + Gravados2);
 
         /*
-        --------------------------------------------------------------------------
-        Fase 3
-        Data : 03 de outubro de 2024
-        Objetivo : ETC - TransformaÃ§Ã£o de nome de estado para UF
-        Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_03.csv
-        Tratamento do arquivo de saida: C:\\D/Habitantes_UF_04.csv
-        --------------------------------------------------------------------------
-        */
-        int fase3 = 3;
-        String inputFileName3 = "Habitantes_UF_03.csv";
-        String outputFileName3 = "Habitantes_UF_0" + (fase3 + 1) + ".csv";
+    --------------------------------------------------------------------------
+    Fase 3
+    Data        :   03 de outubro de 2024
+    Objetivo    :   ETC - TransformaÃ§Ã£o de nome de estado para UF
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_03.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_04.csv
+    --------------------------------------------------------------------------
+         */
+        FileInputStream instream3 = new FileInputStream(basePath + File.separator + "Habitantes_UF_03.csv");
+        FileWriter fileWriter3 = new FileWriter(new File(basePath + File.separator + "Habitantes_UF_04.csv"));
 
-        String inputFilePath3 = basePath + File.separator + inputFileName3;
-        String outputFilePath3 = basePath + File.separator + outputFileName3;
+        InputStreamReader reader3 = new InputStreamReader(instream3);
+        BufferedReader br3 = new BufferedReader(reader3);
 
-        BufferedReader bufferedReader3 = new BufferedReader(new FileReader(inputFilePath3));
-        BufferedWriter bufferedWriter3 = new BufferedWriter(new FileWriter(outputFilePath3));
+        BufferedWriter bufferedWriter3 = new BufferedWriter(fileWriter3);
 
-        String linhaAtual;
-        linhaAtual = bufferedReader3.readLine();
+        String linha3;
+        linha3 = br3.readLine();
 
-        int registrosLidos = 0;
-        int registrosGravados = 0;
+        int Lidos3 = 0;
+        int Gravados3 = 0;
 
-        String[] estadosComUF = new String[27];
+        String[] UF_Estado = new String[27];
 
-        estadosComUF[0] = "AC Acre";
-        estadosComUF[1] = "AL Alagoas";
-        estadosComUF[2] = "AM Amazonas";
-        estadosComUF[3] = "AP Amapa";
-        estadosComUF[4] = "BA Bahia";
-        estadosComUF[5] = "DF Distrito Federal";
-        estadosComUF[6] = "CE Ceara";
-        estadosComUF[7] = "ES Espirito Santo";
-        estadosComUF[8] = "GO Goias";
-        estadosComUF[9] = "MA Maranhao";
-        estadosComUF[10] = "MT Mato Grosso";
-        estadosComUF[11] = "MS Mato Grosso do Sul";
-        estadosComUF[12] = "MG Minas Gerais";
-        estadosComUF[13] = "PA Para";
-        estadosComUF[14] = "PB Paraiba";
-        estadosComUF[15] = "PR Parana";
-        estadosComUF[16] = "PE Pernambuco";
-        estadosComUF[17] = "PI Piaui";
-        estadosComUF[18] = "RJ Rio de Janeiro";
-        estadosComUF[19] = "RN Rio Grande do Norte";
-        estadosComUF[20] = "RS Rio Grande do Sul";
-        estadosComUF[21] = "RO Rondonia";
-        estadosComUF[22] = "RR Roraima";
-        estadosComUF[23] = "SC Santa Catarina";
-        estadosComUF[24] = "SP Sao Paulo";
-        estadosComUF[25] = "SE Sergipe";
-        estadosComUF[26] = "TO Tocantins";
+        UF_Estado[0] = "AC Acre";
+        UF_Estado[1] = "AL Alagoas";
+        UF_Estado[2] = "AM Amazonas";
+        UF_Estado[3] = "AP Amapa";
+        UF_Estado[4] = "BA Bahia";
+        UF_Estado[5] = "DF Distrito Federal";
+        UF_Estado[6] = "CE Ceara";
+        UF_Estado[7] = "ES Espirito Santo";
+        UF_Estado[8] = "GO Goias";
+        UF_Estado[9] = "MA Maranhao";
+        UF_Estado[10] = "MT Mato Grosso";
+        UF_Estado[11] = "MS Mato Grosso do Sul";
+        UF_Estado[12] = "MG Minas Gerais";
+        UF_Estado[13] = "PA Para";
+        UF_Estado[14] = "PB Paraiba";
+        UF_Estado[15] = "PR Parana";
+        UF_Estado[16] = "PE Pernambuco";
+        UF_Estado[17] = "PI Piaui";
+        UF_Estado[18] = "RJ Rio de Janeiro";
+        UF_Estado[19] = "RN Rio Grande do Norte";
+        UF_Estado[20] = "RS Rio Grande do Sul";
+        UF_Estado[21] = "RO Rondonia";
+        UF_Estado[22] = "RR Roraima";
+        UF_Estado[23] = "SC Santa Catarina";
+        UF_Estado[24] = "SP Sao Paulo";
+        UF_Estado[25] = "SE Sergipe";
+        UF_Estado[26] = "TO Tocantins";
 
-        while (linhaAtual != null) {
-            registrosLidos++;
-            String[] campos = linhaAtual.split(";");
-            for (int i = 0; i < estadosComUF.length; i++) {
-                if (campos[0].equals(estadosComUF[i].substring(3))) {
-                    campos[0] = estadosComUF[i].substring(0, 2);
+        while (linha3 != null) {
+            Lidos3 = Lidos3 + 1;
+            String[] campos = linha3.split(";");
+            for (int i = 0; i < 27; i++) {
+                if (campos[0].equals(UF_Estado[i].substring(3, UF_Estado[i].length()))) {
+                    campos[0] = UF_Estado[i].substring(0, 2);
                     bufferedWriter3.write(campos[0] + ";" + campos[1]);
-                    registrosGravados++;
+                    Gravados3 = Gravados3 + 1;
                     bufferedWriter3.newLine();
-                    break;
                 }
             }
-            linhaAtual = bufferedReader3.readLine();
+            linha3 = br3.readLine();
         }
-
+        Gravados3 = Gravados3 + 1;
         bufferedWriter3.close();
-        bufferedReader3.close();
+        fileWriter3.close();
 
         System.out.println("--------- Fase 3 ---------------");
-        System.out.println("Registros lidos    = " + registrosLidos);
-        System.out.println("Registros gravados = " + registrosGravados);
+        System.out.println("Registros lidos    = " + Lidos3);
+        System.out.println("Registros gravados = " + Gravados3);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 4
-         * Data : 03 de outubro de 2024
-         * Objetivo : Totalizar os habitantes do paÃ­s
-         * Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_04.csv
-         * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_05.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 4
+    Data        :   03 de outubro de 2024
+    Objetivo    :   Totalizar os habitantes do paÃ­s
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_04.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_05.csv
+    --------------------------------------------------------------------------
          */
+        FileInputStream instream4 = new FileInputStream(basePath + File.separator + "Habitantes_UF_04.csv");
+        FileWriter fileWriter4 = new FileWriter(new File(basePath + File.separator + "Habitantes_UF_05.csv"));
 
-        int f4 = 4;
-        String inputFileName4 = "Habitantes_UF_04.csv";
-        String outputFileName4 = "Habitantes_UF_0" + (f4 + 1) + ".csv";
+        InputStreamReader reader4 = new InputStreamReader(instream4);
+        BufferedReader br4 = new BufferedReader(reader4);
 
-        String inputFilePath4 = basePath + File.separator + inputFileName4;
-        String outputFilePath4 = basePath + File.separator + outputFileName4;
-
-        BufferedReader bufferedReader4 = new BufferedReader(new FileReader(inputFilePath4));
-        BufferedWriter bufferedWriter4 = new BufferedWriter(new FileWriter(outputFilePath4));
+        BufferedWriter bufferedWriter4 = new BufferedWriter(fileWriter4);
 
         String linha4;
-        linha4 = bufferedReader4.readLine();
+        linha4 = br4.readLine();
 
         int Lidos4 = 0;
         int Gravados4 = 0;
@@ -242,7 +229,7 @@ public class Main {
             bufferedWriter4.write(campos[0] + ";" + result);
             Gravados4 = Gravados4 + 1;
             bufferedWriter4.newLine();
-            linha4 = bufferedReader4.readLine();
+            linha4 = br4.readLine();
         }
 
         bufferedWriter4.write("ZZ" + ";" + Total_Habitantes);
@@ -250,79 +237,73 @@ public class Main {
         bufferedWriter4.newLine();
 
         bufferedWriter4.close();
-        bufferedReader4.close();
+        fileWriter4.close();
 
         System.out.println("--------- Fase 4 ---------------");
-        System.out.println("Registros lidos = " + Lidos4);
+        System.out.println("Registros lidos    = " + Lidos4);
         System.out.println("Registros gravados = " + Gravados4);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 5
-         * Data : 03 de outubro de 2024
-         * Objetivo : ETC - ClassificaÃ§Ã£o alfabÃ©tica pela UF (Descendente)
-         * Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_05.csv
-         * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_06.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 5
+    Data        :   03 de outubro de 2024
+    Objetivo    :   ETC - ClassificaÃ§Ã£o alfabÃ©tica pela UF (Descendente)
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_05.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_06.csv
+    --------------------------------------------------------------------------
          */
         int Gravados5 = 0;
-        int f5 = 5;
 
         String str5;
         ArrayList<String> nomes5 = new ArrayList<String>();
-        String inputFileName5 = "Habitantes_UF_05.csv";
-        String outputFileName5 = "Habitantes_UF_0" + (f5 + 1) + ".csv";
 
-        String inputFilePath5 = basePath + File.separator + inputFileName5;
-        String outputFilePath5 = basePath + File.separator + outputFileName5;
+        BufferedReader in5 = new BufferedReader(new FileReader(basePath + File.separator + "Habitantes_UF_05.csv"));
 
-        BufferedReader bufferedReader5 = new BufferedReader(new FileReader(inputFilePath5));
-
-        while ((str5 = bufferedReader5.readLine()) != null) {
+        while ((str5 = in5.readLine()) != null) {
             nomes5.add(str5);
         }
-        bufferedReader5.close();
+        in5.close();
 
         Collections.sort(nomes5, Collections.reverseOrder());
 
-        BufferedWriter bufferedWriter5 = new BufferedWriter(new FileWriter(outputFilePath5));
-
+        BufferedWriter out6 = new BufferedWriter(new FileWriter(basePath + File.separator + "Habitantes_UF_06.csv"));
         for (int i = 0; i < nomes5.size(); i++) {
-            bufferedWriter5.write(nomes5.get(i));
-            Gravados5++;
-            bufferedWriter5.newLine();
+            out6.write(nomes5.get(i));
+            Gravados5 = Gravados5 + 1;
+            out6.newLine();
         }
-        bufferedWriter5.close();
+        out6.close();
 
         System.out.println("--------- Fase 5 ---------------");
         System.out.println("Registros gravados = " + Gravados5);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 6
-         * Data : 03 de outubro de 2024
-         * Objetivo : Calcular o percentual de habitantes da UF versus PaÃ­s
-         * Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_06.csv
-         * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_07.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 6
+    Data        :   03 de outubro de 2024
+    Objetivo    :   Calcular o percentual de habitantes da UF versus PaÃ­s
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_06.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_07.csv
+    --------------------------------------------------------------------------
          */
-        int f6 = 6;
-        String inputFileName6 = "Habitantes_UF_06.csv";
-        String outputFileName6 = "Habitantes_UF_0" + (f6 + 1) + ".csv";
+        FileInputStream instream6 = new FileInputStream(basePath + File.separator + "Habitantes_UF_06.csv");
+        FileWriter fileWriter6 = new FileWriter(new File(basePath + File.separator + "Habitantes_UF_07.csv"));
 
-        String inputFilePath6 = basePath + File.separator + inputFileName6;
-        String outputFilePath6 = basePath + File.separator + outputFileName6;
+        InputStreamReader reader6 = new InputStreamReader(instream6);
+        BufferedReader br6 = new BufferedReader(reader6);
 
-        BufferedReader bufferedReader6 = new BufferedReader(new FileReader(inputFilePath6));
-        BufferedWriter bufferedWriter6 = new BufferedWriter(new FileWriter(outputFilePath6));
+        BufferedWriter bufferedWriter6 = new BufferedWriter(fileWriter6);
 
         int Lidos6 = 0;
         int Gravados6 = 0;
         double Percentual = 0.0;
+
         String linha6;
-        linha6 = bufferedReader6.readLine();
+        linha6 = br6.readLine();
+
         String[] campos = linha6.split(";");
         Total_Habitantes = Integer.parseInt(campos[1]);
+        linha6 = br6.readLine();
 
         while (linha6 != null) {
             Lidos6 = Lidos6 + 1;
@@ -331,93 +312,81 @@ public class Main {
             bufferedWriter6.write(campos[0] + ";" + campos[1] + ";" + Percentual);
             Gravados6 = Gravados6 + 1;
             bufferedWriter6.newLine();
-            linha6 = bufferedReader6.readLine();
+            linha6 = br6.readLine();
         }
 
-        bufferedReader6.close();
         bufferedWriter6.close();
+        fileWriter6.close();
 
         System.out.println("--------- Fase 6 ---------------");
-        System.out.println("Registros lidos = " + Lidos6);
+        System.out.println("Registros lidos    = " + Lidos6);
         System.out.println("Registros gravados = " + Gravados6);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 7
-         * Data : 03 de outubro de 2024
-         * Objetivo : ETC - ClassificaÃ§Ã£o alfabÃ©tica pela UF
-         * Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_07.csv
-         * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_08.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 7
+    Data        :   03 de outubro de 2024
+    Objetivo    :   ETC - ClassificaÃ§Ã£o alfabÃ©tica pela UF
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_07.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_08.csv
+    --------------------------------------------------------------------------
          */
         int Gravados7 = 0;
 
         String str7;
         ArrayList<String> nomes7 = new ArrayList<String>();
 
-        int f7 = 7;
-        String inputFileName7 = "Habitantes_UF_07.csv";
-        String outputFileName7 = "Habitantes_UF_0" + (f7 + 1) + ".csv";
+        BufferedReader in7 = new BufferedReader(new FileReader(basePath + File.separator + "Habitantes_UF_07.csv"));
 
-        String inputFilePath7 = basePath + File.separator + inputFileName7;
-        String outputFilePath7 = basePath + File.separator + outputFileName7;
-
-        BufferedReader bufferedReader7 = new BufferedReader(new FileReader(inputFilePath7));
-
-        while ((str7 = bufferedReader7.readLine()) != null) {
+        while ((str7 = in7.readLine()) != null) {
             nomes7.add(str7);
         }
-
-        bufferedReader7.close();
+        in7.close();
 
         Collections.sort(nomes7);
 
-        BufferedWriter bufferedWriter7 = new BufferedWriter(new FileWriter(outputFilePath7));
+        BufferedWriter out8 = new BufferedWriter(new FileWriter(basePath + File.separator + "Habitantes_UF_08.csv"));
         for (int i = 0; i < nomes7.size(); i++) {
-            bufferedWriter7.write(nomes7.get(i));
-            Gravados7++;
-            bufferedWriter7.newLine();
+            out8.write(nomes7.get(i));
+            Gravados7 = Gravados7 + 1;
+            out8.newLine();
         }
-
-        bufferedWriter7.close();
+        out8.close();
 
         System.out.println("--------- Fase 7 ---------------");
         System.out.println("Registros gravados = " + Gravados7);
 
         /*
-        --------------------------------------------------------------------------
-        Fase 8
-        Data : 21 de outubro de 2024
-        Objetivo : Calcular o percentual de habitantes da UF versus PaÃ­s
-        Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_06.csv
-        Tratamento do arquivo de saida: C:\\D/Habitantes_UF_07.csv
-        --------------------------------------------------------------------------
-        */
-        int fm1 = 1;
-        String inputFileName8 = "Matriculados_UF_01.csv";
-        String outputFileName8 = "Matriculados_UF_0" + (fm1 + 1) + ".csv";
+    --------------------------------------------------------------------------
+    Fase 8
+    Data        :   21 de outubro de 2024
+    Objetivo    :   Calcular o percentual de habitantes da UF versus PaÃ­s
+    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_06.csv
+                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_07.csv
+    --------------------------------------------------------------------------
+         */
+        FileInputStream instream8 = new FileInputStream(basePath + File.separator + "Matriculados_UF_01.csv");
+        FileWriter fileWriter8 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_02.csv"));
 
-        String inputFilePath8 = basePath + File.separator + inputFileName8;
-        String outputFilePath8 = basePath + File.separator + outputFileName8;
+        InputStreamReader reader8 = new InputStreamReader(instream8);
+        BufferedReader br8 = new BufferedReader(reader8);
 
-        FileInputStream instream8 = new FileInputStream(inputFilePath8);
-        FileWriter fileWriter8 = new FileWriter(new File(outputFilePath8));
-
-        BufferedReader br8 = new BufferedReader(new InputStreamReader(instream8));
         BufferedWriter bufferedWriter8 = new BufferedWriter(fileWriter8);
 
+        //*----------------- Defini ao da linha do arquivo de entrada  -----------------
         String linha8;
         linha8 = br8.readLine();
 
         String UF = null;
         String Numeros = null;
 
+        //*----------------- Defini ao das variaveis de controle de lidos e gravados -----------------
         int Lidos8 = 0;
         int Gravados8 = 0;
 
+        //*----------------- Leitura de todos os registros (linhas) do arquivo de entrada ------------
         while (linha8 != null) {
             Lidos8 = Lidos8 + 1;
-
             if ((linha8.substring(0, linha8.length()).equals("ACRE;;;;;;;;;;;;"))
                     || (linha8.substring(0, linha8.length()).equals("ALAGOAS;;;;;;;;;;;;"))
                     || (linha8.substring(0, linha8.length()).equals("AMAZONAS;;;;;;;;;;;;"))
@@ -446,12 +415,15 @@ public class Main {
                     || (linha8.substring(0, linha8.length()).equals("SERGIPE;;;;;;;;;;;;"))
                     || (linha8.substring(0, linha8.length()).equals("TOCANTINS;;;;;;;;;;;;"))) {
 
+                //*----------------- Leitura de blocos de 5 em 5 linhas -----------------                
                 for (int i = 0; i < 6; i++) {
                     if (i == 0 || i == 5) {
-                        if (i == 0) {
+                        if (i == 0) //*----------------- Para a primeira linha grava a UF (Estado)-----------                
+                        {
                             UF = linha8;
                         } else if (i == 5) {
-                            Numeros = linha8;
+                            //*----------------- Para a quinta linha grava os valores -----------                
+                            Numeros = linha8; // Estadual + Municipal ; Numeros
                             bufferedWriter8.write(UF + ";" + Numeros);
                             Gravados8 = Gravados8 + 1;
                             bufferedWriter8.newLine();
@@ -462,106 +434,107 @@ public class Main {
             }
             linha8 = br8.readLine();
         }
-
+        //*----------------- Encerramento do tratamento do arquivo -----------
         bufferedWriter8.close();
         fileWriter8.close();
-        br8.close();
+        //*------------------------ Exibe os controles  -----------
 
         System.out.println("--------- Fase 8 ---------------");
-        System.out.println("Registros lidos = " + Lidos8);
+        System.out.println("Registros lidos    = " + Lidos8);
         System.out.println("Registros gravados = " + Gravados8);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 9
-         * Data : 4 de novembro de 2024
-         * Objetivo : ETC - Elimina os pontos e totaliza os Matriculados (Anexo I)
-         * Fase 9 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_02.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_03.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 9
+    Data        :   4 de novembro de 2024
+    Objetivo    :   ETC - Elimina os pontos e totaliza os Matriculados (Anexo I)
+    Fase 9      :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_02.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_03.csv
+    --------------------------------------------------------------------------
          */
-        int fm2 = 2;
-        String inputFileName9 = "Matriculados_UF_02.csv";
-        String outputFileName9 = "Matriculados_UF_0" + (fm2 + 1) + ".csv";
-
-        BufferedReader br9 = new BufferedReader(new InputStreamReader(new FileInputStream(inputFileName9)));
-        BufferedWriter bufferedWriter9 = new BufferedWriter(new FileWriter(outputFileName9));
-
-        String linha9;
-        int Matriculados;
         int Lidos9 = 0;
         int Gravados9 = 0;
+        FileInputStream instream9 = new FileInputStream(basePath + File.separator + "Matriculados_UF_02.csv");
+        FileWriter fileWriter9 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_03.csv"));
 
-        while ((linha9 = br9.readLine()) != null) {
+        InputStreamReader reader9 = new InputStreamReader(instream9);
+        BufferedReader br9 = new BufferedReader(reader9);
+
+        BufferedWriter bufferedWriter9 = new BufferedWriter(fileWriter9);
+
+        String linha9;
+        linha9 = br9.readLine();
+        int Matriculados = 0;
+        int j = 0;
+
+        while (linha9 != null) {
             String[] campos9 = linha9.split(";");
-            Matriculados = 0;
 
-            for (int j = 15; j < 25 && j < campos9.length; j++) {
+            for (j = 15; j < 25; j++) {
                 String result = campos9[j].replaceAll("\\p{Punct}", "");
-                Matriculados += Integer.parseInt(result);
+                Matriculados = Matriculados + Integer.parseInt(result);
             }
 
-            Lidos9++;
+            Lidos9 = Lidos9 + 1;
+            linha9 = br9.readLine();
             bufferedWriter9.write(campos9[0] + ";" + Matriculados);
+            Gravados9 = Gravados9 + 1;
+            Matriculados = 0;
             bufferedWriter9.newLine();
-            Gravados9++;
-        }
 
+        }
         bufferedWriter9.close();
-        br9.close();
+        fileWriter9.close();
 
         System.out.println("--------- Fase 9 ---------------");
-        System.out.println("Registros lidos = " + Lidos9);
+        System.out.println("Registros lidos    = " + Lidos9);
         System.out.println("Registros gravados = " + Gravados9);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 10
-         * Data : 4 de novembro de 2024
-         * Objetivo : ETC - Classificar o arquivo pela UF (Anexo I)
-         * Fase 10 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_03.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_04.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 10
+    Data        :   4 de novembro de 2024
+    Objetivo    :   ETC - Classificar o arquivo pela UF (Anexo I)
+    Fase 10     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_03.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_04.csv
+    --------------------------------------------------------------------------
          */
         String str;
-        ArrayList<String> nomes = new ArrayList<>();
-        int fm3 = 3;
-        String inputFileName10 = "Matriculados_UF_03.csv";
-        String outputFileName10 = "Matriculados_UF_0" + (fm3 + 1) + ".csv";
+        ArrayList<String> nomes = new ArrayList<String>();
 
-        BufferedReader br10 = new BufferedReader(new InputStreamReader(new FileInputStream(inputFileName10)));
+        BufferedReader in = new BufferedReader(new FileReader(basePath + File.separator + "Matriculados_UF_03.csv"));
+
         int Gravados10 = 0;
-
-        while ((str = br10.readLine()) != null) {
+        
+        while ((str = in.readLine()) != null) {
             nomes.add(str);
         }
-        br10.close();
-
+        in.close();
+        
         Collections.sort(nomes);
-
-        BufferedWriter bufferedWriter10 = new BufferedWriter(new FileWriter(outputFileName10));
-        for (String nome : nomes) {
-            bufferedWriter10.write(nome);
-            Gravados10++;
-            bufferedWriter10.newLine();
+        
+        BufferedWriter out = new BufferedWriter(new FileWriter(basePath + File.separator + "Matriculados_UF_04.csv"));
+        for (int i = 0; i < nomes.size(); i++) {
+            out.write(nomes.get(i));
+            Gravados10 = Gravados10 + 1;
+            out.newLine();
         }
-        bufferedWriter10.close();
+        out.close();
 
         System.out.println("--------- Fase 10 ---------------");
         System.out.println("Registros gravados = " + Gravados10);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 11
-         * Data : 4 de novembro de 2024
-         * Objetivo : ETC - Filtar os nomes de cidades com nome de estados (Anexo I)
-         * Fase 11 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_04.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_05.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 11
+    Data        :   4 de novembro de 2024
+    Objetivo    :   ETC - Filtar os nomes de cidades com nome de estados (Anexo I)
+    Fase 11     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_04.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_05.csv
+    --------------------------------------------------------------------------
          */
-        int fm4 = 4;
-        FileInputStream instream11 = new FileInputStream("Matriculados_UF_04.csv");
-        FileWriter fileWriter11 = new FileWriter("Matriculados_UF_0" + (fm4 + 1) + ".csv");
+        FileInputStream instream11 = new FileInputStream(basePath + File.separator + "Matriculados_UF_04.csv");
+        FileWriter fileWriter11 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_05.csv"));
 
         InputStreamReader reader11 = new InputStreamReader(instream11);
         BufferedReader br11 = new BufferedReader(reader11);
@@ -582,44 +555,48 @@ public class Main {
             if (campos11[0].equals(Estado_anterior)) {
                 if (Integer.parseInt(campos11[1]) > Valor_anterior) {
                     bufferedWriter11.write(campos11[0] + ";" + campos11[1]);
-                    Gravados11++;
+                    Gravados11 = Gravados11 + 1;
                     bufferedWriter11.newLine();
+                    Lidos11 = Lidos11 + 1;
+                    linha11 = br11.readLine();
+                } else {
+                    Estado_anterior = campos11[0];
+                    Valor_anterior = Integer.parseInt(campos11[1]);
+                    Lidos11 = Lidos11 + 1;
+                    linha11 = br11.readLine();
                 }
-                Lidos11++;
-                linha11 = br11.readLine();
             } else {
                 bufferedWriter11.write(campos11[0] + ";" + campos11[1]);
-                Gravados11++;
+                Gravados11 = Gravados11 + 1;
                 bufferedWriter11.newLine();
                 Estado_anterior = campos11[0];
                 Valor_anterior = Integer.parseInt(campos11[1]);
-                Lidos11++;
+                Lidos11 = Lidos11 + 1;
                 linha11 = br11.readLine();
             }
         }
-
         bufferedWriter11.close();
-        br11.close();
+        fileWriter11.close();
 
         System.out.println("--------- Fase 11 ---------------");
-        System.out.println("Registros lidos = " + Lidos11);
+        System.out.println("Registros lidos    = " + Lidos11);
         System.out.println("Registros gravados = " + Gravados11);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 12
-         * Data : 4 de novembro de 2024
-         * Objetivo : ETC - Classifica por estado - descendente (Anexo I)
-         * Fase 12 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_05.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_06.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 12
+    Data        :   4 de novembro de 2024
+    Objetivo    :   ETC - Classifica por estado - descendente (Anexo I)
+    Fase 12     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_05.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_06.csv
+    --------------------------------------------------------------------------
          */
         int Gravados12 = 0;
-        int fm5 = 5;
-        String str12;
-        ArrayList<String> nomes12 = new ArrayList<>();
 
-        BufferedReader in12 = new BufferedReader(new FileReader("Matriculados_UF_05.csv"));
+        String str12;
+        ArrayList<String> nomes12 = new ArrayList<String>();
+
+        BufferedReader in12 = new BufferedReader(new FileReader(basePath + File.separator + "Matriculados_UF_05.csv"));
 
         while ((str12 = in12.readLine()) != null) {
             nomes12.add(str12);
@@ -628,10 +605,10 @@ public class Main {
 
         Collections.sort(nomes12, Collections.reverseOrder());
 
-        BufferedWriter out12 = new BufferedWriter(new FileWriter("Matriculados_UF_0" + (fm5 + 1) + ".csv"));
-        for (String nome : nomes12) {
-            out12.write(nome);
-            Gravados12++;
+        BufferedWriter out12 = new BufferedWriter(new FileWriter(basePath + File.separator + "Matriculados_UF_06.csv"));
+        for (int i = 0; i < nomes12.size(); i++) {
+            out12.write(nomes12.get(i));
+            Gravados12 = Gravados12 + 1;
             out12.newLine();
         }
         out12.close();
@@ -640,24 +617,24 @@ public class Main {
         System.out.println("Registros gravados = " + Gravados12);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 13
-         * Data : 4 de novembro de 2024
-         * Objetivo : ETC - Filtra os nomes de cidades versus estados (Anexo I)
-         * Fase 13 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_06.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_07.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 13
+    Data        :   4 de novembro de 2024
+    Objetivo    :   ETC - Filtra os nomes de cidades versus estados (Anexo I)
+    Fase 13     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_06.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_07.csv
+    --------------------------------------------------------------------------
          */
-        int fm6 = 6;
-        FileInputStream instream13 = new FileInputStream("Matriculados_UF_06.csv");
-        FileWriter fileWriter13 = new FileWriter("Matriculados_UF_0" + (fm6 + 1) + ".csv");
-
+        FileInputStream instream13 = new FileInputStream(basePath + File.separator + "Matriculados_UF_06.csv");
+        FileWriter fileWriter13 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_07.csv"));
+        
         InputStreamReader reader13 = new InputStreamReader(instream13);
         BufferedReader br13 = new BufferedReader(reader13);
-
+        
         BufferedWriter bufferedWriter13 = new BufferedWriter(fileWriter13);
 
-        String linha13 = br13.readLine();
+        String linha13;
+        linha13 = br13.readLine();
 
         int Lidos13 = 0;
         int Gravados13 = 0;
@@ -670,41 +647,48 @@ public class Main {
             if (campos13[0].equals(Estado_anterior13)) {
                 if (Integer.parseInt(campos13[1]) > Valor_anterior13) {
                     bufferedWriter13.write(campos13[0] + ";" + campos13[1]);
-                    Gravados13++;
+                    Gravados13 = Gravados13 + 1;
                     bufferedWriter13.newLine();
+                    Lidos13 = Lidos13 + 1;
+                    linha13 = br13.readLine();
+                } else {
+                    Estado_anterior13 = campos13[0];
+                    Valor_anterior13 = Integer.parseInt(campos13[1]);
+                    Lidos13 = Lidos13 + 1;
+                    linha13 = br13.readLine();
                 }
             } else {
                 bufferedWriter13.write(campos13[0] + ";" + campos13[1]);
-                Gravados13++;
+                Gravados13 = Gravados13 + 1;
                 bufferedWriter13.newLine();
                 Estado_anterior13 = campos13[0];
                 Valor_anterior13 = Integer.parseInt(campos13[1]);
+                Lidos13 = Lidos13 + 1;
+                linha13 = br13.readLine();
             }
-            Lidos13++;
-            linha13 = br13.readLine();
         }
-
         bufferedWriter13.close();
-        br13.close();
+        fileWriter13.close();
 
         System.out.println("--------- Fase 13 ---------------");
-        System.out.println("Registros lidos = " + Lidos13);
+        System.out.println("Registros lidos    = " + Lidos13);
         System.out.println("Registros gravados = " + Gravados13);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 14
-         * Data : 05 de novembro de 2024
-         * Objetivo : ETC - Transformação de nome de estado para UF (Anexo I)
-         * Fase 14 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_07.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_08.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 14
+    Data        :   05 de novembro de 2024
+    Objetivo    :   ETC - Transformação de nome de estado para UF (Anexo I)
+    Fase 14     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_07.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_08.csv
+    --------------------------------------------------------------------------
          */
-        FileInputStream instream14 = new FileInputStream("Matriculados_UF_07.csv");
-        FileWriter fileWriter14 = new FileWriter(new File("Matriculados_UF_08.csv"));
+        FileInputStream instream14 = new FileInputStream(basePath + File.separator + "Matriculados_UF_07.csv");
+        FileWriter fileWriter14 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_08.csv"));
 
         InputStreamReader reader14 = new InputStreamReader(instream14);
         BufferedReader br14 = new BufferedReader(reader14);
+
         BufferedWriter bufferedWriter14 = new BufferedWriter(fileWriter14);
 
         String linha14;
@@ -760,27 +744,26 @@ public class Main {
         Gravados14 = Gravados14 + 1;
         bufferedWriter14.close();
         fileWriter14.close();
-        br14.close();
 
         System.out.println("--------- Fase 14 ---------------");
-        System.out.println("Registros lidos = " + Lidos14);
+        System.out.println("Registros lidos    = " + Lidos14);
         System.out.println("Registros gravados = " + Gravados14);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 15
-         * Data : 5 de novembro de 2024
-         * Objetivo : ETC - Classifica por UF (Anexo I)
-         * Fase 15 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_08.csv
-         * Tratamento do arquivo de saida: C:\\D/Matriculados_UF_09.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 15
+    Data        :   5 de novembro de 2024
+    Objetivo    :   ETC - Classifica por UF (Anexo I)
+    Fase 15     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_08.csv
+                    Tratamento do arquivo de saida: C:\\D/Matriculados_UF_09.csv
+    --------------------------------------------------------------------------
          */
         int Gravados15 = 0;
 
         String str15;
         ArrayList<String> nomes15 = new ArrayList<String>();
 
-        BufferedReader in15 = new BufferedReader(new FileReader("Matriculados_UF_08.csv"));
+        BufferedReader in15 = new BufferedReader(new FileReader(basePath + File.separator + "Matriculados_UF_08.csv"));
 
         while ((str15 = in15.readLine()) != null) {
             nomes15.add(str15);
@@ -789,7 +772,7 @@ public class Main {
 
         Collections.sort(nomes15);
 
-        BufferedWriter out15 = new BufferedWriter(new FileWriter("Matriculados_UF_09.csv"));
+        BufferedWriter out15 = new BufferedWriter(new FileWriter(basePath + File.separator + "Matriculados_UF_09.csv"));
         for (int i = 0; i < nomes15.size(); i++) {
             out15.write(nomes15.get(i));
             Gravados15 = Gravados15 + 1;
@@ -801,18 +784,18 @@ public class Main {
         System.out.println("Registros gravados = " + Gravados15);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 16
-         * Data : 5 de novembro de 2024
-         * Objetivo : ETC - Merge Habitantes e Matriculados por UF (Total)
-         * Fase 16 : Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_09.csv
-         * C:\\D/Habitantes_UF_08.csv
-         * Tratamento do arquivo de saida: C:\\D/Total_UF_01.csv
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 16
+    Data        :   5 de novembro de 2024
+    Objetivo    :   ETC - Merge Habitantes e Matriculados por UF (Total)
+    Fase 16     :   Tratamento do arquivo de entrada: C:\\D/Matriculados_UF_09.csv
+                                                      C:\\D/Habitantes_UF_08.csv
+                    Tratamento do arquivo de saida: C:\\D/Total_UF_01.csv
+    --------------------------------------------------------------------------
          */
-        FileInputStream instream16A = new FileInputStream("Matriculados_UF_09.csv");
-        FileInputStream instream16B = new FileInputStream("Habitantes_UF_08.csv");
-        FileWriter fileWriter16 = new FileWriter(new File("Total_UF_01.csv"));
+        FileInputStream instream16A = new FileInputStream(basePath + File.separator + "Matriculados_UF_09.csv");
+        FileInputStream instream16B = new FileInputStream(basePath + File.separator + "Habitantes_UF_08.csv");
+        FileWriter fileWriter16 = new FileWriter(new File(basePath + File.separator + "Total_UF_01.csv"));
 
         InputStreamReader reader16A = new InputStreamReader(instream16A);
         InputStreamReader reader16B = new InputStreamReader(instream16B);
@@ -853,25 +836,23 @@ public class Main {
         bufferedWriter16.write("Total" + ";" + Total_Habitantes16 + ";" + Total_Matriculados16);
         bufferedWriter16.close();
         fileWriter16.close();
-        br16A.close();
-        br16B.close();
 
         System.out.println("--------- Fase 16 ---------------");
         System.out.println("Registros lidos - Matriculados = " + Lidos16A);
-        System.out.println("Registros lidos - Habitantes = " + Lidos16B);
+        System.out.println("Registros lidos - Habitantes   = " + Lidos16B);
         System.out.println("Registros gravados = " + Gravados16);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 17
-         * Data : 5 de novembro de 2024
-         * Objetivo : ETC - Geração do percentual ponderado (Total)
-         * Fase 17 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_01.csv"
-         * Tratamento do arquivo de saida: "C:\\D/Total_UF_02.csv"
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 17
+    Data        :   5 de novembro de 2024
+    Objetivo    :   ETC - Geração do percentual ponderado (Total)
+    Fase 17     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_01.csv"
+                    Tratamento do arquivo de saida: "C:\\D/Total_UF_02.csv"
+    --------------------------------------------------------------------------
          */
-        FileInputStream instream17 = new FileInputStream("Total_UF_01.csv");
-        FileWriter fileWriter17 = new FileWriter(new File("Total_UF_02.csv"));
+        FileInputStream instream17 = new FileInputStream(basePath + File.separator + "Total_UF_01.csv");
+        FileWriter fileWriter17 = new FileWriter(new File(basePath + File.separator + "Total_UF_02.csv"));
 
         InputStreamReader reader17 = new InputStreamReader(instream17);
         BufferedReader br17 = new BufferedReader(reader17);
@@ -908,27 +889,26 @@ public class Main {
 
         bufferedWriter17.close();
         fileWriter17.close();
-        br17.close();
 
         System.out.println("--------- Fase 17 ---------------");
-        System.out.println("Registros lidos = " + Lidos17);
+        System.out.println("Registros lidos    = " + Lidos17);
         System.out.println("Registros gravados = " + Gravados17);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 19
-         * Data : 5 de novembro de 2024
-         * Objetivo : Classificação por UF - descendente (Total)
-         * Fase 19 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_01.csv"
-         * Tratamento do arquivo de saida: "C:\\D/Total_UF_02.csv"
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 19
+    Data        :   5 de novembro de 2024
+    Objetivo    :   Classificação por UF - descendente (Total)
+    Fase 19     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_01.csv"
+                    Tratamento do arquivo de saida: "C:\\D/Total_UF_02.csv"
+    --------------------------------------------------------------------------
          */
         int Gravados18 = 0;
 
         String str18;
         ArrayList<String> nomes18 = new ArrayList<String>();
 
-        BufferedReader in18 = new BufferedReader(new FileReader("Total_UF_02.csv"));
+        BufferedReader in18 = new BufferedReader(new FileReader(basePath + File.separator + "Total_UF_02.csv"));
 
         while ((str18 = in18.readLine()) != null) {
             nomes18.add(str18);
@@ -937,7 +917,7 @@ public class Main {
 
         Collections.sort(nomes18, Collections.reverseOrder());
 
-        BufferedWriter out18 = new BufferedWriter(new FileWriter("Total_UF_03.csv"));
+        BufferedWriter out18 = new BufferedWriter(new FileWriter(basePath + File.separator + "Total_UF_03.csv"));
         for (int i = 0; i < nomes18.size(); i++) {
             out18.write(nomes18.get(i));
             Gravados18 = Gravados18 + 1;
@@ -949,16 +929,16 @@ public class Main {
         System.out.println("Registros gravados = " + Gravados18);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 20
-         * Data : 5 de novembro de 2024
-         * Objetivo : ETC - Calcula o percentual ponderado por UF (Total)
-         * Fase 20 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_03.csv"
-         * Tratamento do arquivo de saida: "C:\\D/Total_UF_04.csv"
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 20
+    Data        :   5 de novembro de 2024
+    Objetivo    :   ETC - Calcula o percentual ponderado por UF (Total)
+    Fase 20     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_03.csv"
+                    Tratamento do arquivo de saida: "C:\\D/Total_UF_04.csv"
+    --------------------------------------------------------------------------
          */
-        FileInputStream instream20 = new FileInputStream("Total_UF_03.csv");
-        FileWriter fileWriter20 = new FileWriter(new File("Total_UF_04.csv"));
+        FileInputStream instream20 = new FileInputStream(basePath + File.separator + "Total_UF_03.csv");
+        FileWriter fileWriter20 = new FileWriter(new File(basePath + File.separator + "Total_UF_04.csv"));
 
         InputStreamReader reader20 = new InputStreamReader(instream20);
         BufferedReader br20 = new BufferedReader(reader20);
@@ -979,11 +959,13 @@ public class Main {
 
         while (linha20 != null) {
             campos20 = linha20.split(";");
-            // Removido a declaração duplicada de nMatriculados
-            nMatriculados = Double.parseDouble(campos20[3]); // Apenas atribuindo o valor
+            nMatriculados = Double.parseDouble(campos20[3]);
             Percentual2 = ((nMatriculados / Total_Para_Rateio2));
-            bufferedWriter20
-                    .write(campos20[0] + ";" + campos20[1] + ";" + campos20[2] + ";" + campos20[3] + ";" + Percentual2);
+            bufferedWriter20.write(campos20[0] + ";"
+                    + campos20[1] + ";"
+                    + campos20[2] + ";"
+                    + campos20[3] + ";"
+                    + Percentual2);
             Gravados20 = Gravados20 + 1;
             bufferedWriter20.newLine();
             Lidos20 = Lidos20 + 1;
@@ -992,37 +974,35 @@ public class Main {
 
         bufferedWriter20.close();
         fileWriter20.close();
-        br20.close();
 
         System.out.println("--------- Fase 20 ---------------");
-        System.out.println("Registros lidos = " + Lidos20);
+        System.out.println("Registros lidos    = " + Lidos20);
         System.out.println("Registros gravados = " + Gravados20);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 21
-         * Data : 5 de novembro de 2024
-         * Objetivo : ETC - Classificação por UF (Total)
-         * Fase 21 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_04.csv"
-         * Tratamento do arquivo de saida: "C:\\D/Total_UF_05.csv"
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 21
+    Data        :   5 de novembro de 2024
+    Objetivo    :   ETC - Classificação por UF (Total)
+    Fase 21     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_04.csv"
+                    Tratamento do arquivo de saida: "C:\\D/Total_UF_05.csv"
+    --------------------------------------------------------------------------
          */
         int Gravados21 = 0;
 
         String str21;
         ArrayList<String> nomes21 = new ArrayList<String>();
 
-        BufferedReader in21 = new BufferedReader(new FileReader("Total_UF_04.csv"));
+        BufferedReader in21 = new BufferedReader(new FileReader(basePath + File.separator + "Total_UF_04.csv"));
 
         while ((str21 = in21.readLine()) != null) {
             nomes21.add(str21);
         }
         in21.close();
-
+        
         Collections.sort(nomes21);
-
-        BufferedWriter out21 = new BufferedWriter(new FileWriter("Total_UF_05.csv"));
-
+        
+        BufferedWriter out21 = new BufferedWriter(new FileWriter(basePath + File.separator + "Total_UF_05.csv"));
         for (int i = 0; i < nomes21.size(); i++) {
             out21.write(nomes21.get(i));
             Gravados21 = Gravados21 + 1;
@@ -1034,16 +1014,16 @@ public class Main {
         System.out.println("Registros gravados = " + Gravados21);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 22
-         * Data : 5 de novembro de 2024
-         * Objetivo : ETC - Obtém o valor para ratear e gera os valores por UF (Total)
-         * Fase 22 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_05.csv"
-         * Tratamento do arquivo de saida: "C:\\D/Total_UF_06.csv"
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 22
+    Data        :   5 de novembro de 2024
+    Objetivo    :   ETC - Obtém o valor para ratear e gera os valores por UF (Total)
+    Fase 22     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_05.csv"
+                    Tratamento do arquivo de saida: "C:\\D/Total_UF_06.csv"
+    --------------------------------------------------------------------------
          */
-        FileInputStream instream22 = new FileInputStream("Total_UF_05.csv");
-        FileWriter fileWriter22 = new FileWriter(new File("Total_UF_06.csv"));
+        FileInputStream instream22 = new FileInputStream(basePath + File.separator + "Total_UF_05.csv");
+        FileWriter fileWriter22 = new FileWriter(new File(basePath + File.separator + "Total_UF_06.csv"));
 
         InputStreamReader reader22 = new InputStreamReader(instream22);
         BufferedReader br22 = new BufferedReader(reader22);
@@ -1064,15 +1044,22 @@ public class Main {
 
         while (linha22 != null) {
             String[] campos22 = linha22.split(";");
-            if (!campos22[0].equals("Total: " + Total_Valor)) {
+            if (!campos22[0].equals("Total")) {
                 Rateio = Double.parseDouble(campos22[4]) * Valor;
-                bufferedWriter22.write(campos22[0] + ";" + campos22[1] + ";" + campos22[2] + ";" + campos22[3] + ";"
-                        + campos22[4] + ";" + Rateio);
+                bufferedWriter22.write(campos22[0] + ";"
+                        + campos22[1] + ";"
+                        + campos22[2] + ";"
+                        + campos22[3] + ";"
+                        + campos22[4] + ";"
+                        + Rateio);
             } else {
-                bufferedWriter22.write(campos22[0] + ";" + campos22[1] + ";" + campos22[2] + ";" + campos22[3]);
+                bufferedWriter22.write(campos22[0] + ";"
+                        + campos22[1] + ";"
+                        + campos22[2] + ";"
+                        + campos22[3]);
             }
 
-            Gravados22 = Gravados22 + 1;
+            Gravados22 = Gravados14 + 1;
             bufferedWriter22.newLine();
 
             Lidos22 = Lidos22 + 1;
@@ -1081,26 +1068,25 @@ public class Main {
 
         bufferedWriter22.close();
         fileWriter22.close();
-        br22.close();
 
         System.out.println("--------- Fase 22 ---------------");
-        System.out.println("Registros lidos = " + Lidos22);
+        System.out.println("Registros lidos    = " + Lidos22);
         System.out.println("Registros gravados = " + Gravados22);
 
         /*
-         * --------------------------------------------------------------------------
-         * Fase 23
-         * Data : 6 de novembro de 2024
-         * Objetivo : ETC - Elimina os pontos (Total)
-         * Fase 23 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_06.csv"
-         * Tratamento do arquivo de saida: "C:\\D/Total_UF_07.csv"
-         * --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    Fase 23
+    Data        :   6 de novembro de 2024
+    Objetivo    :   ETC - Elimina os pontos (Total)
+    Fase 23     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_06.csv"
+                    Tratamento do arquivo de saida: "C:\\D/Total_UF_07.csv"
+    --------------------------------------------------------------------------
          */
         int Lidos23 = 0;
         int Gravados23 = 0;
 
-        FileInputStream instream23 = new FileInputStream("Total_UF_06.csv");
-        FileWriter fileWriter23 = new FileWriter(new File("Total_UF_07.csv"));
+        FileInputStream instream23 = new FileInputStream(basePath + File.separator + "Total_UF_06.csv");
+        FileWriter fileWriter23 = new FileWriter(new File(basePath + File.separator + "Total_UF_07.csv"));
 
         InputStreamReader reader23 = new InputStreamReader(instream23);
         BufferedReader br23 = new BufferedReader(reader23);
@@ -1128,77 +1114,69 @@ public class Main {
             linha23 = br23.readLine();
             Gravados23 = Gravados23 + 1;
             bufferedWriter23.newLine();
+
         }
 
         bufferedWriter23.close();
         fileWriter23.close();
-        br23.close();
 
         System.out.println("--------- Fase 23 ---------------");
-        System.out.println("Registros lidos = " + Lidos23);
-        System.out.println("Registros gravados = " + Gravados23);
+        System.out.println("Registros lidos      = " + Lidos23);
+        System.out.println("Registros gravados   = " + Gravados23);
+
+        /*
+    --------------------------------------------------------------------------
+    Fase 24
+    Data        :   6 de novembro de 2024
+    Objetivo    :   ETC - Carga dos dados na Base de Dados (Total)
+    Fase 24     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_07.csv"
+    --------------------------------------------------------------------------
+         */
+//        int Lidos24 = 0;
+//        int Gravados24 = 0;
+//
+//        FileInputStream instream24 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_07.csv");
+//        InputStreamReader reader24 = new InputStreamReader(instream24);
+//        BufferedReader br24 = new BufferedReader(reader24);
+//
+//        String linha24;
+//        linha24 = br24.readLine();
+//
+//        Connection con = DriverManager.getConnection("jdbc:ucanaccess://C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Base_UF.accdb");
+//        Statement stmt = con.createStatement();
+//
+//        while (linha24 != null) {
+//            String campos24[] = linha24.split(";");
+//            if (!campos24[0].equals("Total")) {
+//                String Base_UF = campos24[0];
+//                int Base_Habitantes = Integer.parseInt(campos24[1]);
+//                int Base_Matriculados = Integer.parseInt(campos24[2]);;
+//                double Base_Percentua24A = Double.parseDouble(campos24[3]);
+//                double Base_Percentua24B = Double.parseDouble(campos24[4]);
+//                double Base_Rateio = Double.parseDouble(campos24[5]);
+//                stmt.executeUpdate("insert into Tabela_UF "
+//                        + "(UF, "
+//                        + "Habitantes,"
+//                        + "Matriculados, "
+//                        + "Percentual1, "
+//                        + "Percentual2,"
+//                        + "Rateio) values "
+//                        + "('" + Base_UF
+//                        + "','" + Base_Habitantes
+//                        + "', '" + Base_Matriculados
+//                        + "', '" + Base_Percentua24A
+//                        + "', '" + Base_Percentua24B
+//                        + "', '" + Base_Rateio + "' )");
+//                Gravados24 = Gravados24 + 1;
+//            }
+//            Lidos24 = Lidos24 + 1;
+//            linha24 = br24.readLine();
+//        }
+//
+//        con.close();
+//        System.out.println("--------- Fase 24 ---------------");
+//        System.out.println("Registros lidos    = " + Lidos24);
+//        System.out.println("Registros gravados = " + Gravados24);
+
     }
 }
-
-// /*
-// --------------------------------------------------------------------------
-// Fase 24
-// Data : 6 de novembro de 2024
-// Objetivo : ETC - Carga dos dados na Base de Dados (Total)
-// Fase 24 : Tratamento do arquivo de entrada: "C:\\D/Total_UF_07.csv"
-// --------------------------------------------------------------------------
-// */
-// int Lidos24 = 0;
-// int Gravados24 = 0;
-
-// FileInputStream instream24 = new
-
-// FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número
-// de habitantes por Unidades da Federação/Total_UF_07.csv");
-// InputStreamReader reader24 = new InputStreamReader(instream24);
-// BufferedReader br24 = new BufferedReader(reader24);
-
-// String linha24;
-// linha24 = br24.readLine();
-
-// Connection con =
-
-// DriverManager.getConnection("jdbc:ucanaccess://C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número
-// // de habitantes por Unidades da Federação/Base_UF.accdb");
-// Statement stmt = con.createStatement();
-
-// while (linha24 != null) {
-// String campos24[] = linha24.split(";");
-// if (!campos24[0].equals("Total")) {
-// String Base_UF = campos24[0];
-// int Base_Habitantes = Integer.parseInt(campos24[1]);
-// int Base_Matriculados = Integer.parseInt(campos24[2]);;
-// double Base_Percentua24A = Double.parseDouble(campos24[3]);
-// double Base_Percentua24B = Double.parseDouble(campos24[4]);
-// double Base_Rateio = Double.parseDouble(campos24[5]);
-// stmt.executeUpdate("insert into Tabela_UF "
-// + "(UF, "
-// + "Habitantes,"
-// + "Matriculados, "
-// + "Percentual1, "
-// + "Percentual2,"
-// + "Rateio) values "
-// + "('" + Base_UF
-// + "','" + Base_Habitantes
-// + "', '" + Base_Matriculados
-// + "', '" + Base_Percentua24A
-// + "', '" + Base_Percentua24B
-// + "', '" + Base_Rateio + "' )");
-// Gravados24 = Gravados24 + 1;
-// }
-// Lidos24 = Lidos24 + 1;
-// linha24 = br24.readLine();
-// }
-
-// con.close();
-// System.out.println("--------- Fase 24 ---------------");
-// System.out.println("Registros lidos = " + Lidos24);
-// System.out.println("Registros gravados = " + Gravados24);
-
-// }
-// }

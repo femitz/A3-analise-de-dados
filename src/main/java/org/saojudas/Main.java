@@ -11,22 +11,25 @@ import java.sql.*;
 public class Main {
 
     /*
-    --------------------------------------------------------------------------
-    Fase 1
-    Data        :   03 de outubro de 2024
-    Objetivo    :   ETC - NÃºmero de Habitantes por Estado
-    Fase 1      :   Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_01.csv
-                    Tratamento do arquivo de saida: C:\\D/Habitantes_UF_02.csv
-    --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------
+     * Fase 1
+     * Data : 03 de outubro de 2024
+     * Objetivo : ETC - NÃºmero de Habitantes por Estado
+     * Fase 1 : Tratamento do arquivo de entrada: C:\\D/Habitantes_UF_01.csv
+     * Tratamento do arquivo de saida: C:\\D/Habitantes_UF_02.csv
+     * --------------------------------------------------------------------------
      */
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
 
-        FileInputStream instream = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_01.csv");
-        FileWriter fileWriter = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_02.csv"));
+        String basePath = System.getProperty("user.dir");
+        String inputFilePath = basePath + File.separator + "Habitantes_UF_01.csv";
+        String outputFilePath = basePath + File.separator + "Habitantes_UF_02.csv";
 
+        FileInputStream instream = new FileInputStream(inputFilePath);
         InputStreamReader reader = new InputStreamReader(instream);
         BufferedReader br = new BufferedReader(reader);
 
+        FileWriter fileWriter = new FileWriter(outputFilePath);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
         //*----------------- DefiniÃ§Ã£o da linha do arquivo de entrada  -------------------------------
@@ -100,7 +103,7 @@ public class Main {
         String str2;
         ArrayList<String> nomes2 = new ArrayList<String>();
 
-        BufferedReader in2 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_02.csv"));
+        BufferedReader in2 = new BufferedReader(new FileReader(basePath + File.separator + "Habitantes_UF_02.csv"));
 
         while ((str2 = in2.readLine()) != null) {
             nomes2.add(str2);
@@ -109,7 +112,7 @@ public class Main {
 
         Collections.sort(nomes2);
 
-        BufferedWriter out2 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_03.csv"));
+        BufferedWriter out2 = new BufferedWriter(new FileWriter(basePath + File.separator + "Habitantes_UF_03.csv"));        
         for (int i = 0; i < nomes2.size(); i++) {
             out2.write(nomes2.get(i));
             Gravados2 = Gravados2 + 1;
@@ -129,8 +132,8 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Habitantes_UF_04.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream3 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_03.csv");
-        FileWriter fileWriter3 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_04.csv"));
+        FileInputStream instream3 = new FileInputStream(basePath + File.separator + "Habitantes_UF_03.csv");
+        FileWriter fileWriter3 = new FileWriter(new File(basePath + File.separator + "Habitantes_UF_04.csv"));
 
         InputStreamReader reader3 = new InputStreamReader(instream3);
         BufferedReader br3 = new BufferedReader(reader3);
@@ -203,8 +206,8 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Habitantes_UF_05.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream4 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_04.csv");
-        FileWriter fileWriter4 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_05.csv"));
+        FileInputStream instream4 = new FileInputStream(basePath + File.separator + "Habitantes_UF_04.csv");
+        FileWriter fileWriter4 = new FileWriter(new File(basePath + File.separator + "Habitantes_UF_05.csv"));
 
         InputStreamReader reader4 = new InputStreamReader(instream4);
         BufferedReader br4 = new BufferedReader(reader4);
@@ -254,7 +257,7 @@ public class Main {
         String str5;
         ArrayList<String> nomes5 = new ArrayList<String>();
 
-        BufferedReader in5 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_05.csv"));
+        BufferedReader in5 = new BufferedReader(new FileReader(basePath + File.separator + "Habitantes_UF_05.csv"));
 
         while ((str5 = in5.readLine()) != null) {
             nomes5.add(str5);
@@ -263,7 +266,7 @@ public class Main {
 
         Collections.sort(nomes5, Collections.reverseOrder());
 
-        BufferedWriter out6 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_06.csv"));
+        BufferedWriter out6 = new BufferedWriter(new FileWriter(basePath + File.separator + "Habitantes_UF_06.csv"));
         for (int i = 0; i < nomes5.size(); i++) {
             out6.write(nomes5.get(i));
             Gravados5 = Gravados5 + 1;
@@ -283,8 +286,8 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Habitantes_UF_07.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream6 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_06.csv");
-        FileWriter fileWriter6 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_07.csv"));
+        FileInputStream instream6 = new FileInputStream(basePath + File.separator + "Habitantes_UF_06.csv");
+        FileWriter fileWriter6 = new FileWriter(new File(basePath + File.separator + "Habitantes_UF_07.csv"));
 
         InputStreamReader reader6 = new InputStreamReader(instream6);
         BufferedReader br6 = new BufferedReader(reader6);
@@ -333,7 +336,7 @@ public class Main {
         String str7;
         ArrayList<String> nomes7 = new ArrayList<String>();
 
-        BufferedReader in7 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_07.csv"));
+        BufferedReader in7 = new BufferedReader(new FileReader(basePath + File.separator + "Habitantes_UF_07.csv"));
 
         while ((str7 = in7.readLine()) != null) {
             nomes7.add(str7);
@@ -342,7 +345,7 @@ public class Main {
 
         Collections.sort(nomes7);
 
-        BufferedWriter out8 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_08.csv"));
+        BufferedWriter out8 = new BufferedWriter(new FileWriter(basePath + File.separator + "Habitantes_UF_08.csv"));
         for (int i = 0; i < nomes7.size(); i++) {
             out8.write(nomes7.get(i));
             Gravados7 = Gravados7 + 1;
@@ -362,8 +365,8 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Habitantes_UF_07.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream8 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_01.csv");
-        FileWriter fileWriter8 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_02.csv"));
+        FileInputStream instream8 = new FileInputStream(basePath + File.separator + "Matriculados_UF_01.csv");
+        FileWriter fileWriter8 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_02.csv"));
 
         InputStreamReader reader8 = new InputStreamReader(instream8);
         BufferedReader br8 = new BufferedReader(reader8);
@@ -451,8 +454,8 @@ public class Main {
          */
         int Lidos9 = 0;
         int Gravados9 = 0;
-        FileInputStream instream9 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_02.csv");
-        FileWriter fileWriter9 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_03.csv"));
+        FileInputStream instream9 = new FileInputStream(basePath + File.separator + "Matriculados_UF_02.csv");
+        FileWriter fileWriter9 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_03.csv"));
 
         InputStreamReader reader9 = new InputStreamReader(instream9);
         BufferedReader br9 = new BufferedReader(reader9);
@@ -499,18 +502,18 @@ public class Main {
         String str;
         ArrayList<String> nomes = new ArrayList<String>();
 
-        BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_03.csv"));
+        BufferedReader in = new BufferedReader(new FileReader(basePath + File.separator + "Matriculados_UF_03.csv"));
 
         int Gravados10 = 0;
-
+        
         while ((str = in.readLine()) != null) {
             nomes.add(str);
         }
         in.close();
-
+        
         Collections.sort(nomes);
-
-        BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_04.csv"));
+        
+        BufferedWriter out = new BufferedWriter(new FileWriter(basePath + File.separator + "Matriculados_UF_04.csv"));
         for (int i = 0; i < nomes.size(); i++) {
             out.write(nomes.get(i));
             Gravados10 = Gravados10 + 1;
@@ -530,8 +533,8 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Matriculados_UF_05.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream11 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_04.csv");
-        FileWriter fileWriter11 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_05.csv"));
+        FileInputStream instream11 = new FileInputStream(basePath + File.separator + "Matriculados_UF_04.csv");
+        FileWriter fileWriter11 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_05.csv"));
 
         InputStreamReader reader11 = new InputStreamReader(instream11);
         BufferedReader br11 = new BufferedReader(reader11);
@@ -593,7 +596,7 @@ public class Main {
         String str12;
         ArrayList<String> nomes12 = new ArrayList<String>();
 
-        BufferedReader in12 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_05.csv"));
+        BufferedReader in12 = new BufferedReader(new FileReader(basePath + File.separator + "Matriculados_UF_05.csv"));
 
         while ((str12 = in12.readLine()) != null) {
             nomes12.add(str12);
@@ -602,7 +605,7 @@ public class Main {
 
         Collections.sort(nomes12, Collections.reverseOrder());
 
-        BufferedWriter out12 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_06.csv"));
+        BufferedWriter out12 = new BufferedWriter(new FileWriter(basePath + File.separator + "Matriculados_UF_06.csv"));
         for (int i = 0; i < nomes12.size(); i++) {
             out12.write(nomes12.get(i));
             Gravados12 = Gravados12 + 1;
@@ -622,12 +625,12 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Matriculados_UF_07.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream13 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_06.csv");
-        FileWriter fileWriter13 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_07.csv"));
-
+        FileInputStream instream13 = new FileInputStream(basePath + File.separator + "Matriculados_UF_06.csv");
+        FileWriter fileWriter13 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_07.csv"));
+        
         InputStreamReader reader13 = new InputStreamReader(instream13);
         BufferedReader br13 = new BufferedReader(reader13);
-
+        
         BufferedWriter bufferedWriter13 = new BufferedWriter(fileWriter13);
 
         String linha13;
@@ -680,8 +683,8 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Matriculados_UF_08.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream14 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_07.csv");
-        FileWriter fileWriter14 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_08.csv"));
+        FileInputStream instream14 = new FileInputStream(basePath + File.separator + "Matriculados_UF_07.csv");
+        FileWriter fileWriter14 = new FileWriter(new File(basePath + File.separator + "Matriculados_UF_08.csv"));
 
         InputStreamReader reader14 = new InputStreamReader(instream14);
         BufferedReader br14 = new BufferedReader(reader14);
@@ -760,7 +763,7 @@ public class Main {
         String str15;
         ArrayList<String> nomes15 = new ArrayList<String>();
 
-        BufferedReader in15 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_08.csv"));
+        BufferedReader in15 = new BufferedReader(new FileReader(basePath + File.separator + "Matriculados_UF_08.csv"));
 
         while ((str15 = in15.readLine()) != null) {
             nomes15.add(str15);
@@ -769,7 +772,7 @@ public class Main {
 
         Collections.sort(nomes15);
 
-        BufferedWriter out15 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_09.csv"));
+        BufferedWriter out15 = new BufferedWriter(new FileWriter(basePath + File.separator + "Matriculados_UF_09.csv"));
         for (int i = 0; i < nomes15.size(); i++) {
             out15.write(nomes15.get(i));
             Gravados15 = Gravados15 + 1;
@@ -790,9 +793,9 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Total_UF_01.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream16A = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Matriculados_UF_09.csv");
-        FileInputStream instream16B = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Habitantes_UF_08.csv");
-        FileWriter fileWriter16 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_01.csv"));
+        FileInputStream instream16A = new FileInputStream(basePath + File.separator + "Matriculados_UF_09.csv");
+        FileInputStream instream16B = new FileInputStream(basePath + File.separator + "Habitantes_UF_08.csv");
+        FileWriter fileWriter16 = new FileWriter(new File(basePath + File.separator + "Total_UF_01.csv"));
 
         InputStreamReader reader16A = new InputStreamReader(instream16A);
         InputStreamReader reader16B = new InputStreamReader(instream16B);
@@ -848,8 +851,8 @@ public class Main {
                     Tratamento do arquivo de saida: "C:\\D/Total_UF_02.csv"
     --------------------------------------------------------------------------
          */
-        FileInputStream instream17 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_01.csv");
-        FileWriter fileWriter17 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_02.csv"));
+        FileInputStream instream17 = new FileInputStream(basePath + File.separator + "Total_UF_01.csv");
+        FileWriter fileWriter17 = new FileWriter(new File(basePath + File.separator + "Total_UF_02.csv"));
 
         InputStreamReader reader17 = new InputStreamReader(instream17);
         BufferedReader br17 = new BufferedReader(reader17);
@@ -905,7 +908,7 @@ public class Main {
         String str18;
         ArrayList<String> nomes18 = new ArrayList<String>();
 
-        BufferedReader in18 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_02.csv"));
+        BufferedReader in18 = new BufferedReader(new FileReader(basePath + File.separator + "Total_UF_02.csv"));
 
         while ((str18 = in18.readLine()) != null) {
             nomes18.add(str18);
@@ -914,7 +917,7 @@ public class Main {
 
         Collections.sort(nomes18, Collections.reverseOrder());
 
-        BufferedWriter out18 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_03.csv"));
+        BufferedWriter out18 = new BufferedWriter(new FileWriter(basePath + File.separator + "Total_UF_03.csv"));
         for (int i = 0; i < nomes18.size(); i++) {
             out18.write(nomes18.get(i));
             Gravados18 = Gravados18 + 1;
@@ -934,8 +937,8 @@ public class Main {
                     Tratamento do arquivo de saida: "C:\\D/Total_UF_04.csv"
     --------------------------------------------------------------------------
          */
-        FileInputStream instream20 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_03.csv");
-        FileWriter fileWriter20 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_04.csv"));
+        FileInputStream instream20 = new FileInputStream(basePath + File.separator + "Total_UF_03.csv");
+        FileWriter fileWriter20 = new FileWriter(new File(basePath + File.separator + "Total_UF_04.csv"));
 
         InputStreamReader reader20 = new InputStreamReader(instream20);
         BufferedReader br20 = new BufferedReader(reader20);
@@ -990,16 +993,16 @@ public class Main {
         String str21;
         ArrayList<String> nomes21 = new ArrayList<String>();
 
-        BufferedReader in21 = new BufferedReader(new FileReader("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_04.csv"));
+        BufferedReader in21 = new BufferedReader(new FileReader(basePath + File.separator + "Total_UF_04.csv"));
 
         while ((str21 = in21.readLine()) != null) {
             nomes21.add(str21);
         }
         in21.close();
-
+        
         Collections.sort(nomes21);
-
-        BufferedWriter out21 = new BufferedWriter(new FileWriter("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_05.csv"));
+        
+        BufferedWriter out21 = new BufferedWriter(new FileWriter(basePath + File.separator + "Total_UF_05.csv"));
         for (int i = 0; i < nomes21.size(); i++) {
             out21.write(nomes21.get(i));
             Gravados21 = Gravados21 + 1;
@@ -1019,8 +1022,8 @@ public class Main {
                     Tratamento do arquivo de saida: "C:\\D/Total_UF_06.csv"
     --------------------------------------------------------------------------
          */
-        FileInputStream instream22 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_05.csv");
-        FileWriter fileWriter22 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_06.csv"));
+        FileInputStream instream22 = new FileInputStream(basePath + File.separator + "Total_UF_05.csv");
+        FileWriter fileWriter22 = new FileWriter(new File(basePath + File.separator + "Total_UF_06.csv"));
 
         InputStreamReader reader22 = new InputStreamReader(instream22);
         BufferedReader br22 = new BufferedReader(reader22);
@@ -1082,8 +1085,8 @@ public class Main {
         int Lidos23 = 0;
         int Gravados23 = 0;
 
-        FileInputStream instream23 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_06.csv");
-        FileWriter fileWriter23 = new FileWriter(new File("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_07.csv"));
+        FileInputStream instream23 = new FileInputStream(basePath + File.separator + "Total_UF_06.csv");
+        FileWriter fileWriter23 = new FileWriter(new File(basePath + File.separator + "Total_UF_07.csv"));
 
         InputStreamReader reader23 = new InputStreamReader(instream23);
         BufferedReader br23 = new BufferedReader(reader23);

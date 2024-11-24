@@ -1132,51 +1132,77 @@ public class Main {
     Fase 24     :   Tratamento do arquivo de entrada: "C:\\D/Total_UF_07.csv"
     --------------------------------------------------------------------------
          */
-//        int Lidos24 = 0;
-//        int Gravados24 = 0;
-//
-//        FileInputStream instream24 = new FileInputStream("C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Total_UF_07.csv");
-//        InputStreamReader reader24 = new InputStreamReader(instream24);
-//        BufferedReader br24 = new BufferedReader(reader24);
-//
-//        String linha24;
-//        linha24 = br24.readLine();
-//
-//        Connection con = DriverManager.getConnection("jdbc:ucanaccess://C:\\Users\\822157942\\Downloads\\AnaliseDeDados-main\\AnaliseDeDados-main\\Número de habitantes por Unidades da Federação/Base_UF.accdb");
-//        Statement stmt = con.createStatement();
-//
-//        while (linha24 != null) {
-//            String campos24[] = linha24.split(";");
-//            if (!campos24[0].equals("Total")) {
-//                String Base_UF = campos24[0];
-//                int Base_Habitantes = Integer.parseInt(campos24[1]);
-//                int Base_Matriculados = Integer.parseInt(campos24[2]);;
-//                double Base_Percentua24A = Double.parseDouble(campos24[3]);
-//                double Base_Percentua24B = Double.parseDouble(campos24[4]);
-//                double Base_Rateio = Double.parseDouble(campos24[5]);
-//                stmt.executeUpdate("insert into Tabela_UF "
-//                        + "(UF, "
-//                        + "Habitantes,"
-//                        + "Matriculados, "
-//                        + "Percentual1, "
-//                        + "Percentual2,"
-//                        + "Rateio) values "
-//                        + "('" + Base_UF
-//                        + "','" + Base_Habitantes
-//                        + "', '" + Base_Matriculados
-//                        + "', '" + Base_Percentua24A
-//                        + "', '" + Base_Percentua24B
-//                        + "', '" + Base_Rateio + "' )");
-//                Gravados24 = Gravados24 + 1;
-//            }
-//            Lidos24 = Lidos24 + 1;
-//            linha24 = br24.readLine();
-//        }
-//
-//        con.close();
-//        System.out.println("--------- Fase 24 ---------------");
-//        System.out.println("Registros lidos    = " + Lidos24);
-//        System.out.println("Registros gravados = " + Gravados24);
+        int Lidos24 = 0;
+        int Gravados24 = 0;
+
+        FileInputStream instream24 = new FileInputStream(basePath + File.separator + "Total_UF_07.csv");
+        InputStreamReader reader24 = new InputStreamReader(instream24);
+        BufferedReader br24 = new BufferedReader(reader24);
+
+        String linha24;
+        linha24 = br24.readLine();
+
+        //
+        // Criação da tabela caso não exista.
+        //
+
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS Tabela_UF ("
+                + "UF VARCHAR(50) NOT NULL, "
+                + "Habitantes INT, "
+                + "Matriculados INT, "
+                + "Percentual1 DOUBLE, "
+                + "Percentual2 DOUBLE, "
+                + "Rateio DOUBLE, "
+                + "PRIMARY KEY (UF)"
+                + ");";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Base_UF", "root", "senha");
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(createTableSQL);
+            System.out.println("Tabela criada ou já existia.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //
+        // Inserção dos dados no banco de dados
+        //
+
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Base_UF", "root", "senha");
+        Statement stmt = con.createStatement();
+
+        while (linha24 != null) {
+            String campos24[] = linha24.split(";");
+            if (!campos24[0].equals("Total")) {
+                String Base_UF = campos24[0];
+                int Base_Habitantes = Integer.parseInt(campos24[1]);
+                int Base_Matriculados = Integer.parseInt(campos24[2]);;
+                double Base_Percentua24A = Double.parseDouble(campos24[3]);
+                double Base_Percentua24B = Double.parseDouble(campos24[4]);
+                double Base_Rateio = Double.parseDouble(campos24[5]);
+                stmt.executeUpdate("insert into Tabela_UF "
+                        + "(UF, "
+                        + "Habitantes,"
+                        + "Matriculados, "
+                        + "Percentual1, "
+                        + "Percentual2,"
+                        + "Rateio) values "
+                        + "('" + Base_UF
+                        + "','" + Base_Habitantes
+                        + "', '" + Base_Matriculados
+                        + "', '" + Base_Percentua24A
+                        + "', '" + Base_Percentua24B
+                        + "', '" + Base_Rateio + "' )");
+                Gravados24 = Gravados24 + 1;
+            }
+            Lidos24 = Lidos24 + 1;
+            linha24 = br24.readLine();
+        }
+
+        con.close();
+        System.out.println("--------- Fase 24 ---------------");
+        System.out.println("Registros lidos    = " + Lidos24);
+        System.out.println("Registros gravados = " + Gravados24);
 
     }
 }

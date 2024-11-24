@@ -1,5 +1,7 @@
 package org.saojudas;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1135,6 +1137,15 @@ public class Main {
         int Lidos24 = 0;
         int Gravados24 = 0;
 
+        // Carrega variáveis do arquivo .env
+        Dotenv dotenv = Dotenv.load();
+        dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
+
+        // Strings banco de dados
+        String url = "jdbc:mysql://localhost:3306/Base_UF";
+        String usuario = dotenv.get("DB_USER");
+        String senha = dotenv.get("DB_PASSWORD");
+
         FileInputStream instream24 = new FileInputStream(basePath + File.separator + "Total_UF_07.csv");
         InputStreamReader reader24 = new InputStreamReader(instream24);
         BufferedReader br24 = new BufferedReader(reader24);
@@ -1156,7 +1167,7 @@ public class Main {
                 + "PRIMARY KEY (UF)"
                 + ");";
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Base_UF", "root", "senha");
+        try (Connection connection = DriverManager.getConnection(url, usuario, senha);
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableSQL);
             System.out.println("Tabela criada ou já existia.");
@@ -1168,7 +1179,7 @@ public class Main {
         // Inserção dos dados no banco de dados
         //
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Base_UF", "root", "senha");
+        Connection con = DriverManager.getConnection(url, usuario, senha);
         Statement stmt = con.createStatement();
 
         while (linha24 != null) {

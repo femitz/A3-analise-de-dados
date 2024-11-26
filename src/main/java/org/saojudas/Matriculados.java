@@ -1,10 +1,7 @@
 package org.saojudas;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Matriculados {
     private String pathBase;
@@ -420,5 +417,26 @@ public class Matriculados {
         System.out.println("--------- Fase 15 ---------------");
         System.out.println("Registros gravados = " + Gravados);
         System.out.println("Arquivo base: " + arquivo);
+    }
+
+    public void somarValoresPorUF(String filePath, Map<String, Integer> ufValues) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(";");
+            String uf = parts[0];
+            int value = Integer.parseInt(parts[1]);
+            ufValues.put(uf, ufValues.getOrDefault(uf, 0) + value);
+        }
+        reader.close();
+    }
+
+    public void escreverSomaNoArquivo(String filePath, Map<String, Integer> ufValues) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        for (Map.Entry<String, Integer> entry : ufValues.entrySet()) {
+            writer.write(entry.getKey() + ";" + entry.getValue());
+            writer.newLine();
+        }
+        writer.close();
     }
 }

@@ -3,11 +3,10 @@ package org.saojudas;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
+
 import static javax.swing.JOptionPane.*;
 import java.text.NumberFormat;
-import java.util.Locale;
 import java.sql.*;
 
 public class Main {
@@ -453,8 +452,70 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Matriculados_UF_09.csv
     --------------------------------------------------------------------------
          */
-       matriculados.fase15();
-       matriculadosAnexo2.fase15();
+
+        matriculados.fase15();
+        matriculadosAnexo2.fase15();
+
+          /*
+    --------------------------------------------------------------------------
+    Fase Soma
+    Data        :   5 de novembro de 2024
+    Objetivo    :   Somar MatriculadosAnexo1 e MatriculadosAnexo2
+    Fase Soma   :
+                    T
+    --------------------------------------------------------------------------
+         */
+
+        String pathAnexo1 = basePath + File.separator + "MatriculadosAnexo1_UF_09.csv";
+        String pathAnexo2 = basePath + File.separator + "MatriculadosAnexo2_UF_09.csv";
+        String pathMatriculadosSoma = basePath + File.separator + "Matriculados_UF_10.csv";
+
+        Map<String, Integer> ufValores = new HashMap<>();
+
+        // Anexo 1
+        matriculados.somarValoresPorUF(pathAnexo1, ufValores);
+
+        // Anexo 2
+        matriculados.somarValoresPorUF(pathAnexo2, ufValores);
+
+        // Novo arquivo
+        matriculados.escreverSomaNoArquivo(pathMatriculadosSoma, ufValores);
+
+        System.out.println("--------- Soma ---------------");
+        System.out.println("Soma dos matriculados concluída. Arquivo de saída: " + pathMatriculadosSoma);
+
+          /*
+    --------------------------------------------------------------------------
+    Fase Ordenação por UF Alfabetica
+    Data        :   5 de novembro de 2024
+    Objetivo    :   Ordenar os UF em ordem alfabetica
+    --------------------------------------------------------------------------
+         */
+        String pathMatriculadosFinal = basePath + File.separator + "Matriculados_UF_Final.csv";
+
+        List<String> lines = new ArrayList<>();
+
+        // Read the file
+        try (BufferedReader readerMatriculados = new BufferedReader(new FileReader(pathMatriculadosSoma))) {
+            String line;
+            while ((line = readerMatriculados.readLine()) != null) {
+                lines.add(line);
+            }
+        }
+
+        // Sort the lines alphabetically by the UF column
+        lines.sort(Comparator.comparing(line -> line.split(";")[0]));
+
+        // Write the sorted lines to a new file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathMatriculadosFinal))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
+        System.out.println("--------- Ordenacao em ordem alfabetica ---------------");
+        System.out.println("Ordenação dos matriculados concluída. Arquivo de saída: " + pathMatriculadosFinal);
+
         /*
     --------------------------------------------------------------------------
     Fase 16
@@ -465,7 +526,7 @@ public class Main {
                     Tratamento do arquivo de saida: C:\\D/Total_UF_01.csv
     --------------------------------------------------------------------------
          */
-        FileInputStream instream16A = new FileInputStream(basePath + File.separator + "Matriculados_UF_09.csv");
+        FileInputStream instream16A = new FileInputStream(basePath + File.separator + "Matriculados_UF_Final.csv");
         FileInputStream instream16B = new FileInputStream(basePath + File.separator + "Habitantes_UF_08.csv");
         FileWriter fileWriter16 = new FileWriter(new File(basePath + File.separator + "Total_UF_01.csv"));
 

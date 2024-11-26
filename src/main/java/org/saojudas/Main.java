@@ -495,7 +495,6 @@ public class Main {
 
         List<String> lines = new ArrayList<>();
 
-        // Read the file
         try (BufferedReader readerMatriculados = new BufferedReader(new FileReader(pathMatriculadosSoma))) {
             String line;
             while ((line = readerMatriculados.readLine()) != null) {
@@ -503,10 +502,8 @@ public class Main {
             }
         }
 
-        // Sort the lines alphabetically by the UF column
         lines.sort(Comparator.comparing(line -> line.split(";")[0]));
 
-        // Write the sorted lines to a new file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathMatriculadosFinal))) {
             for (String line : lines) {
                 writer.write(line);

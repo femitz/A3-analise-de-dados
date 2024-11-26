@@ -3,6 +3,8 @@ package org.saojudas;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Matriculados {
     private String pathBase;
@@ -15,7 +17,7 @@ public class Matriculados {
     }
 
     public void fase8() throws IOException {
-        FileInputStream instream = new FileInputStream(pathBase + File.separator + arquivo +  ".csv");
+        FileInputStream instream = new FileInputStream(pathBase + File.separator + arquivo + ".csv");
         FileWriter fileWriter = new FileWriter(new File(pathBase + File.separator + arquivo + "_02" + ".csv"));
 
         InputStreamReader reader = new InputStreamReader(instream);
@@ -23,56 +25,61 @@ public class Matriculados {
 
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-        //*----------------- Defini ao da linha do arquivo de entrada  -----------------
+        //*----------------- Lista de estados válidos -----------------
+        Set<String> estados = new HashSet<>();
+        estados.add("ACRE");
+        estados.add("ALAGOAS");
+        estados.add("AMAZONAS");
+        estados.add("AMAPA");
+        estados.add("BAHIA");
+        estados.add("DISTRITO FEDERAL");
+        estados.add("CEARA");
+        estados.add("ESPIRITO SANTO");
+        estados.add("GOIAS");
+        estados.add("MARANHAO");
+        estados.add("MATO GROSSO");
+        estados.add("MATO GROSSO DO SUL");
+        estados.add("MINAS GERAIS");
+        estados.add("PARA");
+        estados.add("PARAIBA");
+        estados.add("PARANA");
+        estados.add("PERNAMBUCO");
+        estados.add("PIAUI");
+        estados.add("RIO DE JANEIRO");
+        estados.add("RIO GRANDE DO NORTE");
+        estados.add("RIO GRANDE DO SUL");
+        estados.add("RONDONIA");
+        estados.add("RORAIMA");
+        estados.add("SANTA CATARINA");
+        estados.add("SAO PAULO");
+        estados.add("SERGIPE");
+        estados.add("TOCANTINS");
+
+        //*----------------- Definição da linha do arquivo de entrada  -----------------
         String linha;
         linha = br.readLine();
 
         String UF = null;
         String Numeros = null;
 
-        //*----------------- Defini ao das variaveis de controle de lidos e gravados -----------------
+        //*----------------- Definição das variáveis de controle de lidos e gravados -----------------
         int Lidos = 0;
         int Gravados = 0;
 
         //*----------------- Leitura de todos os registros (linhas) do arquivo de entrada ------------
-
         while (linha != null) {
             Lidos++;
 
-            if ((linha.substring(0, linha.length()).equals("ACRE;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("ALAGOAS;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("AMAZONAS;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("AMAPA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("BAHIA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("DISTRITO FEDERAL;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("CEARA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("ESPIRITO SANTO;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("GOIAS;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("MARANHAO;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("MATO GROSSO;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("MATO GROSSO DO SUL;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("MINAS GERAIS;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("PARA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("PARAIBA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("PARANA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("PERNAMBUCO;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("PIAUI;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("RIO DE JANEIRO;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("RIO GRANDE DO NORTE;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("RIO GRANDE DO SUL;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("RONDONIA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("RORAIMA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("SANTA CATARINA;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("SAO PAULO;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("SERGIPE;;;;;;;;;;;;"))
-                    || (linha.substring(0, linha.length()).equals("TOCANTINS;;;;;;;;;;;;"))) {
+            //*----------------- Validação simplificada para linhas com estados -----------------
+            String[] partes = linha.split(";");
+            if (partes.length > 0 && estados.contains(partes[0])) {
 
                 //*----------------- Leitura de blocos de 5 em 5 linhas -----------------
                 for (int i = 0; i < 6; i++) {
                     if (i == 0 || i == 5) {
                         if (i == 0) //*----------------- Para a primeira linha grava a UF (Estado)-----------
                         {
-                            UF = linha;
+                            UF = partes[0];
                         } else if (i == 5) {
                             //*----------------- Para a quinta linha grava os valores -----------
                             Numeros = linha; // Estadual + Municipal ; Numeros
@@ -83,17 +90,19 @@ public class Matriculados {
                     }
                     linha = br.readLine();
                 }
+            } else {
+                linha = br.readLine();
             }
-            linha = br.readLine();
         }
+
         //*----------------- Encerramento do tratamento do arquivo -----------
         bufferedWriter.close();
         fileWriter.close();
         reader.close();
         br.close();
         instream.close();
-        //*------------------------ Exibe os controles  -----------
 
+        //*------------------------ Exibe os controles  -----------
         System.out.println("--------- Fase 8 ---------------");
         System.out.println("Registros lidos    = " + Lidos);
         System.out.println("Registros gravados = " + Gravados);
@@ -120,7 +129,7 @@ public class Matriculados {
         while (linha != null) {
             String[] campos = linha.split(";");
 
-            for (j = 15; j < 25; j++) {
+            for (j = 2; j < campos.length; j++) {
                 String result = campos[j].replaceAll("\\p{Punct}", "");
                 Matriculados = Matriculados + Integer.parseInt(result);
             }
